@@ -6,7 +6,7 @@
 
 [English](README.md) | [Français](README.fr.md) | [Español](README.es.md) | [中文](README.zh.md) | [Nederlands](README.nl.md) | [Русский](README.ru.md) | [한국어](README.ko.md)
 
-An enterprise-grade, AI-powered Google Ads management system with **28 custom tools**, **6 specialized sub-agents**, and **live read/write access** to Google Ads accounts via the Google Ads API v22.
+An enterprise-grade, AI-powered Google Ads management system with **28 custom tools**, **6 specialized sub-agents**, and **live read/write access** to Google Ads accounts via the Google Ads API v23.
 
 The production version runs at **[googleadsagent.ai](https://googleadsagent.ai)** (Buddy) on Cloudflare's edge — with semantic memory, encrypted key storage, automated monitoring, and a credit-based billing system. This repo is the open-source Python agent that powers the same capabilities.
 
@@ -526,7 +526,7 @@ The refresh token lets the agent authenticate without user interaction. You gene
    - Check **Use your own OAuth credentials**
    - Enter your `Client ID` and `Client Secret` from Step 1A-2
    - Close the settings
-3. In the left panel, scroll to **Google Ads API v18** → check `https://www.googleapis.com/auth/adwords`
+3. In the left panel, scroll to **Google Ads API v23** → check `https://www.googleapis.com/auth/adwords`
 4. Click **Authorize APIs**
 5. Sign in with the Google account that has access to your Google Ads accounts
 6. Grant the requested permissions
@@ -885,7 +885,7 @@ Each sub-agent is a separate agent that the main agent delegates tasks to. They 
 
 **Builtin Tools (9):** code_interpreter, query_executor, csv_reader, string_matcher, display_file, file_search, browser_use, researcher, google_web_search
 
-> ⚠️ Actions 3 & 4 (Interactive Keyword/Ad Viewers) use Google Ads API **v18** while the others use **v19**. Verify the `google-ads` pip package supports both.
+> ⚠️ Actions 3 & 4 (Interactive Keyword/Ad Viewers) use Google Ads API **v23** — all actions consolidated to v23.
 
 ---
 
@@ -1176,7 +1176,7 @@ For the Cloudflare Buddy production architecture (Durable Objects, Vectorize, D1
 |-------|----------|---------|------------|
 | **Optimization sub-agent has no actions** | 🔴 Critical | System prompt describes Recommendations Manager & Bulk Operations Manager, but neither action exists | Build them using Google Ads API, or use main agent's Recommendations Manager (#20) directly |
 | **Shopping & PMax sub-agent has no actions** | 🔴 Critical | System prompt describes Shopping & PMax Manager, but no action exists | Build it, or use main agent's PMax Asset Group Manager (#28) as a starting point |
-| **API version mismatch in Reporting** | 🟡 Medium | Interactive Keyword/Ad Viewers use v18, other reporting actions use v19 | Verify `google-ads` pip package handles both; consider upgrading v18 actions |
+| **API version mismatch in Reporting** | 🟡 Medium | Interactive Keyword/Ad Viewers consolidated to v23 | Verify `google-ads` pip package handles both; consider all actions now on v23 |
 | **Pattern A vs B naming inconsistency** | 🟡 Low | Same credentials stored under different key names across actions | Just enter the same values — works fine, just confusing during setup |
 
 ---
